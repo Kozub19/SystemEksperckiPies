@@ -1,0 +1,236 @@
+    <!DOCTYPE html>
+    <html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Wybór Rasy Psa</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 20px;
+            }
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: white;
+                padding: 20px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                text-align: center;
+            }
+            .question {
+                margin-bottom: 15px;
+            }
+            label {
+                font-weight: bold;
+            }
+            select, input[type="radio"] {
+                margin-top: 5px;
+            }
+            #result {
+                margin-top: 20px;
+                font-size: 1.2em;
+                color: green;
+                text-align: center;
+            }
+            #dogImage {
+                display: none; 
+                margin: 20px auto;
+                max-width: 100%;
+                height: auto;
+                border-radius: 10px;
+            }
+            .explanation {
+                font-size: 0.9em;
+                color: #555;
+                margin-top: 10px;
+                border-top: 1px solid #ccc;
+                padding-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Wybierz Rasę Psa</h1>
+            <form id="dogForm">
+                <div class="question">
+                    <label>Czy masz dzieci?</label><br>
+                    <input type="radio" name="children" value="yes" required> Tak<br>
+                    <input type="radio" name="children" value="no"> Nie
+                </div>
+                <div class="question">
+                    <label>Ile masz miejsca w domu?</label><br>
+                    <select name="space" required>
+                        <option value="small">Mało</option>
+                        <option value="medium">Średnio</option>
+                        <option value="large">Dużo</option>
+                    </select>
+                </div>
+                <div class="question">
+                    <label>Jak bardzo jesteś aktywny?</label><br>
+                    <input type="radio" name="active" value="low" required> Niska aktywność<br>
+                    <input type="radio" name="active" value="medium"> Średnia aktywność<br>
+                    <input type="radio" name="active" value="high"> Wysoka aktywność
+                </div>
+                <div class="question">
+                    <label>Czy masz alergię na psy?</label><br>
+                    <input type="radio" name="allergy" value="yes" required> Tak<br>
+                    <input type="radio" name="allergy" value="no"> Nie
+                </div>
+                <div class="question">
+                    <label>Czy szukasz psa stróżującego?</label><br>
+                    <input type="radio" name="guard" value="yes" required> Tak<br>
+                    <input type="radio" name="guard" value="no"> Nie
+                </div>
+                <div class="question">
+                    <label>Jak często możesz pielęgnować psa?</label><br>
+                    <input type="radio" name="grooming" value="low" required> Rzadko<br>
+                    <input type="radio" name="grooming" value="medium"> Średnio<br>
+                    <input type="radio" name="grooming" value="high"> Często
+                </div>
+                <div class="question">
+                    <label>Jakie masz doświadczenie z psami?</label><br>
+                    <select name="experience" required>
+                        <option value="beginner">Początkujący</option>
+                        <option value="intermediate">Średnie</option>
+                        <option value="advanced">Zaawansowane</option>
+                    </select>
+                </div>
+                <button type="submit">Znajdź Rasę</button>
+            </form>
+            
+            <div id="result"></div>
+            <img id="dogImage" src="" alt="Zdjęcie psa">
+
+            <div class="explanation">
+                <h2>Wyjaśnienie Terminów</h2>
+                <strong>Wyjaśnienie:</strong> 
+                <ul>
+                    <li><strong>Ilość miejsca:</strong></li>
+                    <li><strong>Mało:</strong> Mieszkanie 1-pokojowe, studio lub mały dom.</li>
+                    <li><strong>Średnio:</strong> Mieszkanie 2-3 pokojowe lub średniej wielkości dom.</li>
+                    <li><strong>Dużo:</strong> Duży dom lub mieszkanie z dużą przestrzenią wewnętrzną oraz ogrodem.</li><br>
+                    <li><strong>Poziom aktywności:</strong></li>
+                    <li><strong>Niska aktywność:</strong> Psy, które nie potrzebują dużo ruchu. Idealne dla osób preferujących spokojniejszy styl życia.</li>
+                    <li><strong>Średnia aktywność:</strong> Psy, które wymagają umiarkowanego poziomu aktywności. Regularne spacery i zabawy są wystarczające.</li>
+                    <li><strong>Wysoka aktywność:</strong> Psy, które potrzebują dużo ruchu i aktywności fizycznej. Idealne dla osób prowadzących aktywny styl życia.</li><br>
+
+                    <li><strong>Jakie masz doświadczenie:</strong></li>
+                    <li><strong>Początkujący:</strong> Nie miałeś psa lub miałeś bardzo mało doświadczenia.</li>
+                    <li><strong>Średnie:</strong> Miałeś kilka psów lub miałeś doświadczenie z różnymi rasami.</li>
+                    <li><strong>Zaawansowane:</strong> Masz dużą wiedzę na temat psów i ich potrzeb oraz doświadczenie w ich wychowaniu.</li>
+                </ul>
+            </div>
+        </div>
+
+        <script>
+       document.getElementById('dogForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const children = document.querySelector('input[name="children"]:checked').value;
+    const space = document.querySelector('select[name="space"]').value;
+    const active = document.querySelector('input[name="active"]:checked').value;
+    const allergy = document.querySelector('input[name="allergy"]:checked').value;
+    const guard = document.querySelector('input[name="guard"]:checked').value;
+    const grooming = document.querySelector('input[name="grooming"]:checked').value;
+    const experience = document.querySelector('select[name="experience"]').value;
+
+    let dogBreed = '';
+    let dogImageSrc = '';
+
+    // Pierwsze kryterium: alergie
+    if (allergy === 'yes') {
+        dogBreed = 'Pudel (pies dla alergików)';
+        dogImageSrc = 'src/pudel.jpg';
+    } 
+    // Następne kryterium: przestrzeń i poziom aktywności
+    else if (space === 'small') {
+        if (active === 'low') {
+            if (grooming === 'low') {
+                dogBreed = 'Chihuahua';
+                dogImageSrc = 'src/chihuahua.jpeg';
+            } else {
+                dogBreed = 'Shih Tzu';
+                dogImageSrc = 'src/shihtzu.jpeg';
+            }
+        } else if (active === 'medium') {
+            if (experience === 'beginner') {
+                dogBreed = 'Mops';
+                dogImageSrc = 'src/mops.jpeg';
+            } else {
+                dogBreed = 'West Highland White Terrier';
+                dogImageSrc = 'src/west.jpg';
+            }
+        }
+    }
+    else if (space === 'medium') {
+        if (active === 'high') {
+            if (experience === 'intermediate') {
+                dogBreed = 'Border Collie';
+                dogImageSrc = 'src/border.jpg';
+            } else {
+                dogBreed = 'Golden Retriever';
+                dogImageSrc = 'src/Golden.jpg';
+            }
+        } else if (active === 'low') {
+            dogBreed = 'Labrador Retriever';
+            dogImageSrc = 'src/Labrador.jpg';
+        }
+    }
+    else if (space === 'large') {
+        if (active === 'high') {
+            if (experience === 'advanced') {
+                if (guard === 'yes') {
+                    dogBreed = 'Doberman';
+                    dogImageSrc = 'src/doberman.jpg';
+                } else {
+                    dogBreed = 'Husky Syberyjski';
+                    dogImageSrc = 'src/husky.jpg';
+                }
+            } else if (experience === 'beginner') {
+                dogBreed = 'Labrador Retriever';
+                dogImageSrc = 'src/Labrador.jpg';
+            }
+        } else if (active === 'medium') {
+            if (guard === 'yes') {
+                dogBreed = 'Akita';
+                dogImageSrc = 'src/akita.jpg';
+            } else if (grooming === 'high') {
+                dogBreed = 'Samoyed';
+                dogImageSrc = 'src/samoyed.jpg';
+            } else {
+                dogBreed = 'Basset Hound';
+                dogImageSrc = 'src/basset.jpg';
+            }
+        }
+    }
+
+    // Pies stróżujący
+    if (guard === 'yes' && !dogBreed) {
+        if (space === 'large' && experience !== 'beginner') {
+            dogBreed = 'Rottweiler';
+            dogImageSrc = 'src/rottweiler.jpg';
+        }
+    }
+
+    // Wybór zapasowy, jeśli nic innego nie pasuje
+    if (!dogBreed) {
+        dogBreed = 'Labrador Retriever';  // Domyślny wybór dla większości przypadków
+        dogImageSrc = 'src/Labrador.jpg';
+    }
+
+    // Wyświetlanie wyniku
+    document.getElementById('result').textContent = `Sugerowana rasa psa: ${dogBreed}`;
+    const dogImage = document.getElementById('dogImage');
+    dogImage.src = dogImageSrc;  
+    dogImage.alt = dogBreed;  
+    dogImage.style.display = 'block';  
+});
+
+        
+        </script>
+    </body>
+    </html>
